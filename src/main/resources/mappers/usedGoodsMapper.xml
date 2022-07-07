@@ -7,6 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.taegyun.ex.database.dao.UsedGoodsDAO">
 
 	<select id="selectUsedGoodsList" resultType="com.taegyun.ex.database.model.UsedGoods">
+	
 		SELECT 
 			`id`
 			, `sellerId`
