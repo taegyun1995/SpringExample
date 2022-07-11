@@ -18,4 +18,14 @@ public class ReviewBO {
 		
 		return review;
 	}
+	
+	// storeId, menu, userName, point, review 파라미터로 전달
+	public int addReview(int storeId, String menu, String userName, double point, String review) {
+		
+		return reviewDAO.insertReview(storeId, menu, userName, point, review);
+	}
+	
+	public int addReviewByObject(Review review) {
+		return reviewDAO.insertReviewByObject(review);
+	}
 }
