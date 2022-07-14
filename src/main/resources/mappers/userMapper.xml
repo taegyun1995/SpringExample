@@ -28,8 +28,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 	
-	<select id="selectLastUser" resultType="com.taegyun.ex.jsp.model.User" parameterType="map">
+	<insert id="insertUserWithId" parameterType="com.taegyun.ex.jsp.model.User" 
+	useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+			`new_user`
+		(
+			`name`
+			, `yyyymmdd`
+			, `introduce`
+			, `email`
+			, `createdAt`
+			, `updatedAt`
+		)
+		VALUES
+		(
+			#{name}
+			, #{yyyymmdd}
+			, #{introduce}
+			, #{email}
+			, now()
+			, now()
+		)
+	</insert>
 	
+	<select id="selectLastUser" resultType="com.taegyun.ex.jsp.model.User" parameterType="map">
 		SELECT
 			`id` 
 			, `name`
@@ -42,7 +64,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			`new_user`
 		ORDER BY `id` DESC
 		LIMIT 1
-		
 	</select>
 
 
