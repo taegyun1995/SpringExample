@@ -3,21 +3,13 @@ package com.taegyun.ex.ajax.model;
 import java.util.Date;
 
 public class NewUser {
-	
 	private int id;
 	private String name;
-	private String birthday;
-	public String getBirthday() {
-		return birthday;
-	}
-	public void setBirthday(String birthday) {
-		this.birthday = birthday;
-	}
+	private String yyyymmdd;
 	private String introduce;
 	private String email;
 	private Date createdAt;
 	private Date updatedAt;
-	
 	public int getId() {
 		return id;
 	}
@@ -29,6 +21,12 @@ public class NewUser {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getYyyymmdd() {
+		return yyyymmdd;
+	}
+	public void setYyyymmdd(String yyyymmdd) {
+		this.yyyymmdd = yyyymmdd;
 	}
 	public String getIntroduce() {
 		return introduce;
@@ -54,7 +52,4 @@ public class NewUser {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
-	
-
 }

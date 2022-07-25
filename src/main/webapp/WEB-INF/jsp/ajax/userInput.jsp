@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>유저 추가</title>
+<title>유저추가</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 <body>
-
 	<!-- <form method="post" action="/ajax/user/insert" id="userForm">  -->
-		<label>이름 </label> <input type="text" name="name" id="nameInput"> <br>
+		<label>이름 </label> <input type="text" name="name" id="nameInput">
+		<button type="button" id="duplicateBtn"> 중복확인 </button> <br>
 		<label>생년월일</label> <input type="text" name="birthday" id="birthInput"> <br>
 		<label>자기소개</label> <br>
 		<textarea rows="5" cols="30" name="introduce" id="introduceInput"></textarea> <br>
@@ -20,6 +20,38 @@
 	
 	<script>
 		$(document).ready(function() {
+			
+			$("#duplicateBtn").on("click", function(){
+				// 이름 인풋에 입력한 이름이 중복인지 확인
+				let name = $("#nameInput").val();
+				
+				if(name == "") {
+					alert("이름을 입력하세요");
+					return false;
+				}
+				
+				$.ajax({
+					type:"get",
+					url:"/ajax/user/is_duplicate",
+					data:{"name": name},
+					
+					success:function(data) {
+						// is_duplicate : true
+						// is_duplicate : false
+						if(data.is_duplicate) { // 중복된 상황
+							alert("중복된 이름 입니다.");
+						} else {
+							alert("사용가능한 이름 입니다.");
+						}
+					},
+					error:function() {
+						alert("에러 발생!!");
+					}
+					
+				});
+					
+				
+			});
 			
 			$("#addBtn").on("click", function() {
 				
@@ -112,6 +144,7 @@
 	
 	
 	</script>
+	
 	
 </body>
 </html>

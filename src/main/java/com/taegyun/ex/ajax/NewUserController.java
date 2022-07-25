@@ -21,48 +21,73 @@ import com.taegyun.ex.ajax.model.NewUser;
 public class NewUserController {
 	
 	@Autowired
-	private NewUserBO newuserBO;
+	private NewUserBO newUserBO;
 	
-	// new_user 테이블 결과 보기
+	// new_user 테이블 결과 보기 
 	@GetMapping("/list")
 	public String userList(Model model) {
 		
-		List<NewUser> newUser = newuserBO.getUserList();
-		model.addAttribute("userList", newUser);
+		List<NewUser> userList = newUserBO.getUserList();
+		
+		model.addAttribute("userList", userList);
 		
 		return "ajax/userList";
 	}
-
-	// 이름, 생년월일, 자기소개, 이메일 전달받고 저장
-	@ResponseBody
+	
+	// 이름, 생년월일, 자기소개, 이메일 전달 받고 저장
 	@PostMapping("/insert")
+	@ResponseBody
 	public Map<String, String> addUser(
 			@RequestParam("name") String name
 			, @RequestParam("birthday") String birthday
 			, @RequestParam("introduce") String introduce
 			, @RequestParam("email") String email) {
 		
-		int count = newuserBO.addUser(name, birthday, introduce, email);
-		// {"result" : "success"}
+		int count = newUserBO.addUser(name, birthday, introduce, email);
+		// {"result":"success"}
 		
 		Map<String, String> result = new HashMap<>();
 		
 		if(count == 1) {
 			// 정상 상태
-			// {"result" : "success"}
-			result.put("result",  "success");
-			
+			// {"result":"success"}
+			result.put("result", "success");
+			 
 		} else {
-			// 문제 상태
-			// {"result" : "fail"}
-			result.put("result",  "fail");
+			// 문제 상태 
+			// {"result":"fail"}
+			result.put("result", "fail");
 		}
 		
 		return result;
+		
 	}
 	
 	@GetMapping("/input")
 	public String userInput() {
 		return "ajax/userInput";
 	}
+	
+	@ResponseBody
+	@GetMapping("/is_duplicate")
+	public Map<String, Boolean> isDuplicate(@RequestParam("name") String name) {
+		
+		Map<String, Boolean> result = new HashMap<>();
+		
+//		if(newUserBO.isDuplicateName(name)) {
+//			// 중복된 상태
+//			//  {"is_duplicate": true}
+//			result.put("is_duplicate", true);
+//			
+//		} else {
+//			// 중복되지 않은 상태
+//			//  {"is_duplicate": false}
+//			result.put("is_duplicate", false);
+//		}
+		
+		result.put("is_duplicate", newUserBO.isDuplicateName(name));
+		
+		return result;
+	}
+
 }

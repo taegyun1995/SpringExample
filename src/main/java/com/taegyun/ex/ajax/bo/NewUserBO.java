@@ -12,16 +12,29 @@ import com.taegyun.ex.ajax.model.NewUser;
 public class NewUserBO {
 	
 	@Autowired
-	private NewUserDAO newuserDAO;
+	private NewUserDAO newUserDAO;
 	
-	//new_user 테이블 모든 내용 얻어오기
+	// new_user 테이블 모든 내용 얻어오기 
 	public List<NewUser> getUserList() {
-		return newuserDAO.selectUserList();
-		
+		return newUserDAO.selectUserList();
 	}
 	
 	public int addUser(String name, String birthday, String introduce, String email) {
-		
-		return newuserDAO.insertUser(name, birthday, introduce, email);
+		return newUserDAO.insertUser(name, birthday, introduce, email);
 	}
+	
+	public boolean isDuplicateName(String name) {
+//		int count = newUserDAO.selectCountByName(name);
+		
+//		if(count == 0) { // 중복되지 않음
+//			return false;
+//		} else { // 중복됨
+//			return true;
+//		}
+		
+//		return count != 0;
+		
+		return newUserDAO.selectCountByName(name) != 0;
+	}
+
 }
